@@ -67,6 +67,13 @@
 					font-size:2em;
 				}
 				
+				h3
+				{
+					color:#00FFFF;
+					text-align:center;
+					font-family: 'Roboto', sans-serif;
+				}
+				
 				nav ul
 					{
 					font-family: 'Roboto', sans-serif;
@@ -108,7 +115,66 @@
 					padding:.25em;
 					color:#00FFFF;
 					}
+
+				rect 
+					{ 
+					fill: none;
+  					pointer-events: all;
+					}
+
+				circle 
+					{
+  					fill: none;
+  					stroke-width: 2.5px;
+					}
+
+				canvas
+				{
+					position:fixed;
+					background-color: #444;
+					margin:0px auto;
+				}
 			</style>
+			<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var width = Math.max(500, innerWidth),
+    height = Math.max(500, innerHeight);
+
+var a_canvas = document.getElementById("a");
+
+
+var i = 0;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .on("ontouchstart" in document ? "touchmove" : "mousemove", particle);
+
+function particle() {
+  var m = d3.mouse(this);
+
+  svg.insert("circle", "rect")
+      .attr("cx", m[0])
+      .attr("cy", m[1])
+      .attr("r", 1e-7)
+      .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
+      .style("stroke-opacity", 1)
+    .transition()
+      .duration(2000)
+      .ease(Math.sqrt)
+      .attr("r", 100)
+      .style("stroke-opacity", 1e-7)
+      .remove();
+
+  d3.event.preventDefault();
+}
+
+</script>
 	</head>
 	<div class="wrapper">
 		<body>
@@ -137,6 +203,9 @@
 						<li>
 							<a href="googleMaps.html">Assignment 5: Public API Experimentation</a>
 						</li>
+						<li>
+							<a href="workshop2.html">Workshop 2: Playing with P5</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -159,6 +228,12 @@
 								<li>
 									<a href="openWebResponse.html">Reading 5: Understanding the Open Web</a>
 								</li>
+								<li>
+									<a href="NewAesthetic.html">Reading 6: Understanding the New Aesthetic</a>
+								</li>
+								<li>
+									<a href="VRwebreading.html">Reading 7: Understanding Virtual Reality</a>
+								</li>
 							</ul>
 						</nav>
 				</div>
@@ -172,6 +247,10 @@
 							</ul>
 						</nav>
 				</div>
+				<div class="banner">
+					<h3>Zen Circle Garden</h3>
+				</div>
+				<canvas id ="a" width="300" height="225"></canvas>
 		</body>
 	</div>
 </html>
